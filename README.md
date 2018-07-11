@@ -33,4 +33,4 @@ To log values from the antminers currently you will have to configure ```passwor
 
 ## Roadmap
 
-**If you want to see what we(and you) plan to get done on this project. Please visit our Roadmap wiki on this github project**
+**If you want to see what we(and you) plan to get done on this project. Please visit our Miner-Monitor-Wiki on this github project**

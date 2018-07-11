@@ -12,6 +12,11 @@ NodeJS
 mosquitto
 ```
 
+### Supported Miners
+```Antminer S9```
+
+If you want to make support for other cryptocurrency miners setups(including graphics card setups) feel free to create a fork and when your done I will deffinetly review it when you make a pull request!
+
 ### Installing
 
 ```
@@ -28,4 +33,4 @@ To log values from the antminers currently you will have to configure ```passwor
 
 ## Roadmap
 
-***If you want to see what we(and you) plan to get done on this project. Please visit our Roadmap wiki on this github project***
+**If you want to see what we(and you) plan to get done on this project. Please visit our Roadmap wiki on this github project**

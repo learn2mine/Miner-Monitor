@@ -9,20 +9,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```
 NodeJS
+mosquitto
 ```
 
 ### Installing
 
 ```
-apt-get install nodejs
+apt-get install nodejs mosquitto
 ```
 
 ### Runing the file
 
-```
-To log values from the antminers currently you will have to configure passwordless ssh entry into your antminers from the machine you are running this file on. Then you will have to change the file to your ips. Then run it on your machine by going ./get-miner-values. All this will effectively do as of now is log out temps, hashrate and other important data into mqtt variables.
-```
+To log values from the antminers currently you will have to configure ```passwordless ssh entry``` into your Antminer S9's from the machine you are running this file on. Then you will have to change the file to your ip addresses. Then run it on your machine by going ```./get-miner-values```. All this will effectively do as of now is log out temps, hashrate and other important data into mqtt variables.
+
 
 ## License
 
-Currently not chosen
+
+## Roadmap
+
+***If you want to see what we(and you) plan to get done on this project. Please visit our Roadmap wiki on this github project***

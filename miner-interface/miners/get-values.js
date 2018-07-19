@@ -8,10 +8,10 @@ var net = require('net');
 var StringDecoder = require('string_decoder').StringDecoder;
 
 //Container for scrapers
-var helpers = {};
+var getValues = {};
 
 // Helper for APIs that use tcp
-helpers.apiTCP = function(port,ip,msg,callback){
+getValues.apiTCP = function(port,ip,msg,callback){
   port = typeof(port) == 'number' && port.toString().trim().length == 4 ? port : false;
   ip = typeof(ip) == 'string' && ip.trim().length >= 12 && ip.trim().length <= 13 ? ip.trim() : false;
   msg = typeof(msg) == 'string' && msg.length > 0 ? msg : false;
@@ -54,15 +54,5 @@ helpers.apiTCP = function(port,ip,msg,callback){
 //  console.log(err);
 //});
 
-// Parse json without throwing
-helpers.parseJsonToObject = function(str){
-  try {
-    var obj = JSON.parse(str);
-    return obj;
-  } catch(e) {
-    return {};
-  };
-}
-
 // Export the module
-module.exports = helpers;
+module.exports = getValues;

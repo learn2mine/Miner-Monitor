@@ -6,14 +6,25 @@
 // Dependencies
 var antminerS9 = require('./miners/antminer-s9');
 var config = require('./lib/manage-config-file.js');
+var mqtt = require('./../mqtt-lib/mqtt.js')
+var helpers = require('./lib/helpers.js')
+// Connect to the mqtt client
+var client  = mqtt.connect('mqtt://test.mosquitto.org')
 
-// small function for setting intervals
-var interval = function(minerName,ipAddress,typeOfMiner,callback){
-  setInterval(function () {
-  console.log(minerName);
-//  console.log(ipAddress);
-//  console.log(typeOfMiner);
-}, 5000)}
+var clientConnected = false;
+
+//client.on('connect', function () {
+//  clientConntected = true;
+//  client.subscribe('presence')
+//  client.publish('presence', 'Hello mqtt')
+//});
+
+
+//client.on('message', function (topic, message) {
+  // message is Buffer
+//  console.log(message.toString())
+//  client.end()
+//})
 
 // Run the checkConfig function
 console.log("Checking for config file...");
@@ -28,25 +39,27 @@ config.checkConfig(function(err, newConfig){
     } else {
       console.log('Config file found...')
       // Read the config.json file
-      console.log('Reading configuration from config.json');
+      console.log('Reading configuration from config.json...');
       config.getConfig(function(err,data){
         if(!err && data){
           minersObject = Object.keys(data).length > 0 ? data : false;
           if (minersObject){
             console.log('Lauching Miner-Monitor 2.0.0');
-            // loop throught the miners
+              client.on('connect', function () {
+                console.log('Connected to the mqtt client...');
+                // loop throught the miners
             for(minerName in minersObject) {
               var minerName = typeof(minerName) == 'string' && minerName.trim().length < 100 ? minerName : false;
-              var ipAddress = typeof(minersObject[minerName].ipAddress) == 'string' && minersObject[minerName].ipAddress.trim().length >= 12 && minersObject[minerName].ipAddress.trim().length <= 13 ? minersObject[minerName].ipAddress : false;
+              var ipAddress = typeof(minersObject[minerName].ipAddress) == 'string' && minersObject[minerName].ipAddress.trim().length >= 12 && minersObject[minerName].ipAddress.trim().length <= 50 ? minersObject[minerName].ipAddress : false;
               var typeOfMiner = typeof(minersObject[minerName].typeOfMiner) == "string" ? minersObject[minerName].typeOfMiner : false;
-
                 if(minerName && ipAddress && typeOfMiner){
                   if(typeOfMiner == "Antminer S9"){
-//                    antminerS9.getValues(ipAddress,function(err,data){
+
+                    antminerS9.getValues(ipAddress,function(err){
                       if(!err && data){
                         // Set timeout for mosquitto function
                            console.log('Initializing '+minerName+'...')
-                            interval(minerName,ipAddress,typeOfMiner,function(err){
+                            helpers.interval(minerName,ipAddress,typeOfMiner,function(err){
                               if(err){
                                 console.log(err);
                               };
@@ -54,7 +67,8 @@ config.checkConfig(function(err, newConfig){
                       } else {
                         console.log(err);
                       };
-//                    });
+                    })
+
                   } else {
                     console.log("That miner is not yet supported! Feel free to work on the github project!:)")
                   };
@@ -62,6 +76,7 @@ config.checkConfig(function(err, newConfig){
                   console.log("Please make sure all your data is filled in correctly in the config.json file")
                 };
             };
+            });
           } else {
             console.log("Please put some settings in the config.json file")
           };

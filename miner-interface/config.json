@@ -1,1 +1,1 @@
-{"Antminer1":{"typeOfMiner":"Antminer S9","ipAddress":"192.168.34.11"},"FUNNYMINER":{"typeOfMiner":"Antminer S9","ipAddress":"192.168.34.11"},"Antminer2":{"typeOfMiner":"Antminer S9","ipAddress":"192.168.34.12"}}
+{"WebAntminer1":{"typeOfMiner":"Antminer S9","ipAddress":"localhost:1111"},"WebAntminer2":{"typeOfMiner":"Antminer S9","ipAddress":"localhost:4028"}}

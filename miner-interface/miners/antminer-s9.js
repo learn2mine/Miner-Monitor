@@ -4,7 +4,7 @@
 */
 
 // Dependencies
-var getValues = require('./get-values');
+var getValues = require('./get-antminer-values');
 var helper = require('./../lib/helpers.js');
 
 // container for all the functions
@@ -13,7 +13,10 @@ var antminerS9 = {};
 // Get the values from the antminer
 antminerS9.getValues = function(ip,callback){
   // Check if we got the values
-  ip = typeof(ip) == 'string' && ip.trim().length <= 13 && ip.trim().length >= 12 ? ip.trim() : false;
+//  console.log(ip);
+
+  ip = typeof(ip) == 'string' && ip.trim().length > 13 && ip.trim().length < 60 ? ip.trim() : false;
+  console.log(ip)
   if (ip){
     // Get the hardware stats from the machine
     getValues.apiTCP(4028,ip,'{"command":"stats","parameter":""}',function(error,hardwareData){
@@ -55,7 +58,7 @@ antminerS9.getValues = function(ip,callback){
 
       } else {
         callback('Could not get data from the machine, Is the IP right?');
-      }
+      };
     });
   } else {
     callback('Missing required field');
@@ -65,9 +68,9 @@ antminerS9.getValues = function(ip,callback){
 
 
 // Example request
-//antminerS9.getValues('192.168.34.12',function(err){
-//  console.log(err);
-//});
+antminerS9.getValues('localhost:1111',function(err){
+  console.log(err);
+});
 
 // Change values on the antminer
 antminerS9.changeSettings = function(username,password,ip,callback){
